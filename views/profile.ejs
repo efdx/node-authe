@@ -22,7 +22,7 @@
         <!-- LOCAL INFORMATION -->
         <div class="col-sm-6">
             <div class="well">
-                <h3><span class="fa fa-user"></span> Local</h3>
+                <h3 class="text-info"><span class="fa fa-user"></span> Local</h3>
 
                     <p>
                         <strong>id</strong>: <%= user._id %><br>
@@ -33,41 +33,42 @@
             </div>
         </div>
 
-        <!-- FACEBOOK INFORMATION -->
         <div class="col-sm-6">
-            <div class="well">
-                <h3 class="text-primary"><span class="fa fa-facebook"></span> Facebook</h3>
+          <div class="well">
+            <h3 class="text-info"><span class="fa fa-comment-o"></span> Mensajes</h3>
 
-                    <p>
-                        <strong>id</strong>: <%= user.facebook.id %><br>
-                        <strong>token</strong>: <%= user.facebook.token %><br>
-                        <strong>email</strong>: <%= user.facebook.email %><br>
-                        <strong>name</strong>: <%= user.facebook.name %>
-                    </p>
+            <%= mensaje.mensaje %>
 
             </div>
         </div>
-
-        <!-- TWITTER INFORMATION -->
-        <div class="col-sm-6">
-            <div class="well">
-                <h3 class="text-info"><span class="fa fa-twitter"></span> Twitter</h3>
-
-                    <p>
-                        <strong>id</strong>: <%= user.twitter.id %><br>
-                        <strong>token</strong>: <%= user.twitter.token %><br>
-                        <strong>username</strong>: <%= user.twitter.username %><br>
-                        <strong>displayName</strong>: <%= user.twitter.displayName %>
-                    </p>
-
-            </div>
-        </div>
-
 
     </div>
+
+
+<div class="row">
+
+	<div class="col-sm-6">
+		<div class="well">
+			<h3 class="text-info"><i class="fa fa-address-book"></i> Contactos</h3>
+        <div class="contacts">
+
+          <form action="/send-message" method="post">
+            <% for(var i=0;i<contacts.length;i++){ %>
+              <input type="checkbox" name="email" value="<%= contacts[i].local.email %>"> <%= contacts[i].local.email %></br>
+
+            <%}%>
+            <label for="comment">Mensaje:</label>
+            <input type="text" name="mensaje">
+
+            <button type="submit" class="btn">Enviar</button>
+          </form>
+
+      </div>
+		</div>
+	</div>
+
+</div>
 
 </div>
 </body>
 </html>
-
-
