@@ -88,15 +88,13 @@ module.exports = function(app, passport) {
       	  if (err) throw err;
       	  db.collection("users").find({},{"local.email":1}).toArray(function(err, result) {
             if (err) throw err;
-            db.collection("users").find({"local.email":req.user.local.email},{"local.message":1}).toArray(function(err,result2){
+            db.collection("users").find({"local.email":req.user.local.email},{}).toArray(function(err,result2){
               if (err) throw err;
               res.render('profile.ejs', {
                        user : req.user, // get the user out of session and pass to template
                        contacts: result,
                        mensaje: result2
               });
-              console.log(result);
-              console.log(result2);
               db.close();
             })
 
@@ -127,7 +125,7 @@ module.exports = function(app, passport) {
        if (err) { throw err; }
        else {
          var collection = db.collection("users");
-         collection.findOneAndUpdate({"local.email": req.body.email}, {$push:{"message":{"from":req.body.email, "mensaje":req.body.mensaje}}}, {upsert: true}, function(err,doc) {
+         collection.findOneAndUpdate({"local.email": req.body.email}, {$push:{"message":{"from":req.body.from, "mensaje":req.body.mensaje}}}, {upsert: true}, function(err,doc) {
            if (err) { throw err; }
            else {
              console.log("Updated");

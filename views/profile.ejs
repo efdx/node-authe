@@ -37,7 +37,12 @@
           <div class="well">
             <h3 class="text-info"><span class="fa fa-comment-o"></span> Mensajes</h3>
 
-            <%= mensaje.mensaje %>
+
+		<% for(var i=0;i<mensaje[0].message.length;i++){ %>
+			<strong>From:</strong> <%= mensaje[0].message[i].from %></br>
+			<strong>Mensaje:</strong> <%= mensaje[0].message[i].mensaje %></br>
+		<%}%>
+
 
             </div>
         </div>
@@ -53,9 +58,10 @@
         <div class="contacts">
 
           <form action="/send-message" method="post">
+		<input type="hidden" name="from" value="<%= user.local.email %>">
+
             <% for(var i=0;i<contacts.length;i++){ %>
               <input type="checkbox" name="email" value="<%= contacts[i].local.email %>"> <%= contacts[i].local.email %></br>
-
             <%}%>
             <label for="comment">Mensaje:</label>
             <input type="text" name="mensaje">
